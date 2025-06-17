@@ -1,0 +1,162 @@
+[
+  {
+    "traceId": "trace123",
+    "spanId": "span1",
+    "name": "HTTP GET /api/users",
+    "kind": "SERVER",
+    "startTime": "2024-03-20T10:00:00Z",
+    "endTime": "2024-03-20T10:00:01Z",
+    "attributes": {
+      "http.method": "GET",
+      "http.url": "/api/users",
+      "http.status_code": 200
+    },
+    "status": {
+      "code": 0,
+      "message": "NOT_OK"
+    },
+    "events": [
+      {
+        "time": "2024-03-20T10:00:00.5Z",
+        "name": "processing",
+        "attributes": {
+          "processing.time": "500ms"
+        }
+      }
+    ],
+    "links": []
+  },
+  {
+    "traceId": "trace123",
+    "spanId": "span2",
+    "name": "Database Query",
+    "kind": "CLIENT",
+    "startTime": "2024-03-20T10:00:00.1Z",
+    "endTime": "2024-03-20T10:00:00.8Z",
+    "attributes": {
+      "db.system": "postgresql",
+      "db.operation": "SELECT",
+      "db.statement": "SELECT * FROM users"
+    },
+    "status": {
+      "code": 0,
+      "message": "OK"
+    },
+    "events": [],
+    "links": [
+      {
+        "traceId": "trace123",
+        "spanId": "span1",
+        "attributes": {
+          "link.type": "child_of"
+        }
+      }
+    ]
+  },
+  {
+    "traceId": "trace456",
+    "spanId": "span3",
+    "name": "HTTP POST /api/orders",
+    "kind": "SERVER",
+    "startTime": "2024-03-21T11:00:00Z",
+    "endTime": "2024-03-21T11:00:02Z",
+    "attributes": {
+      "http.method": "POST",
+      "http.url": "/api/orders",
+      "http.status_code": 201
+    },
+    "status": {
+      "code": 0,
+      "message": "Created"
+    },
+    "events": [
+      {
+        "time": "2024-03-21T11:00:01Z",
+        "name": "order-validated",
+        "attributes": {
+          "validation": "passed"
+        }
+      }
+    ],
+    "links": []
+  },
+  {
+    "traceId": "trace456",
+    "spanId": "span4",
+    "name": "Payment Service Call",
+    "kind": "CLIENT",
+    "startTime": "2024-03-21T11:00:00.5Z",
+    "endTime": "2024-03-21T11:00:01.5Z",
+    "attributes": {
+      "rpc.system": "grpc",
+      "rpc.service": "PaymentService",
+      "rpc.method": "Charge"
+    },
+    "status": {
+      "code": 1,
+      "message": "Timeout"
+    },
+    "events": [
+      {
+        "time": "2024-03-21T11:00:01.2Z",
+        "name": "retry",
+        "attributes": {
+          "attempt": 1
+        }
+      }
+    ],
+    "links": [
+      {
+        "traceId": "trace456",
+        "spanId": "span3",
+        "attributes": {
+          "link.type": "child_of"
+        }
+      }
+    ]
+  },
+  {
+    "traceId": "trace789",
+    "spanId": "span5",
+    "name": "Cache Lookup",
+    "kind": "INTERNAL",
+    "startTime": "2024-03-22T12:00:00Z",
+    "endTime": "2024-03-22T12:00:00.2Z",
+    "attributes": {
+      "cache.hit": true,
+      "cache.key": "user:42"
+    },
+    "status": {
+      "code": 0,
+      "message": "OK"
+    },
+    "events": [],
+    "links": []
+  },
+  {
+    "traceId": "trace789",
+    "spanId": "span6",
+    "name": "Background Job Execution",
+    "kind": "INTERNAL",
+    "startTime": "2024-03-22T12:05:00Z",
+    "endTime": "2024-03-22T12:05:10Z",
+    "attributes": {
+      "job.name": "send-email",
+      "job.status": "success"
+    },
+    "status": {
+      "code": 0,
+      "message": "OK"
+    },
+    "events": [
+      {
+        "time": "2024-03-22T12:05:05Z",
+        "name": "email-sent",
+        "attributes": {
+          "recipient": "user@example.com"
+        }
+      }
+    ],
+    "links": []
+  }
+] 
