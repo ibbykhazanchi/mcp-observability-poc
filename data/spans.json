@@ -158,5 +158,31 @@
       }
     ],
     "links": []
+  },
+  {
+    "traceId": "trace789",
+    "spanId": "span6",
+    "name": "Background Job Execution",
+    "kind": "INTERNAL",
+    "startTime": "2024-03-22T12:05:00Z",
+    "endTime": "2024-03-22T12:05:10Z",
+    "attributes": {
+      "job.name": "send-email",
+      "job.status": "failed"
+    },
+    "status": {
+      "code": 0,
+      "message": "Failed"
+    },
+    "events": [
+      {
+        "time": "2024-03-22T12:05:05Z",
+        "name": "email-sent",
+        "attributes": {
+          "recipient": "user@example.com"
+        }
+      }
+    ],
+    "links": []
   }
 ] 
